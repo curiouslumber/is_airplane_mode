@@ -11,15 +11,17 @@ import io.flutter.plugin.common.MethodChannel.Result
 /** IsAirplaneModePlugin */
 class IsAirplaneModePlugin: FlutterPlugin, MethodCallHandler {
   private lateinit var channel : MethodChannel
+  private lateinit var context: Context
 
   override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
     channel = MethodChannel(flutterPluginBinding.binaryMessenger, "is_airplane_mode")
     channel.setMethodCallHandler(this)
+    context = flutterPluginBinding.applicationContext
   }
 
   override fun onMethodCall(call: MethodCall, result: Result) {
     if (call.method == "isAirplaneMode") {
-      val isOn = isAirplaneModeOn(context)
+      val isOn = isAirplaneModeOn()
       result.success(isOn)
     } else {
       result.notImplemented()
@@ -29,7 +31,7 @@ class IsAirplaneModePlugin: FlutterPlugin, MethodCallHandler {
   /**
  * Returns true if airplane mode is on, false otherwise.
  */
-  fun isAirplaneModeOn(context: Context): Boolean {
+  fun isAirplaneModeOn(): Boolean {
     return Settings.Global.getInt(
         context.contentResolver,
         Settings.Global.AIRPLANE_MODE_ON,

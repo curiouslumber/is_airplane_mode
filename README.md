@@ -4,17 +4,28 @@ A Flutter plugin that allows you to check if the device is in airplane mode.
 
 ## Usage
 
-To use this plugin, add `is_airplane_mode` as a [dependency in your pubspec.yaml file](https://flutter.dev/docs/development/platform-integration/platform-channels).
+Call `IsAirplaneMode.isAirplaneMode` to check if the device is in airplane mode.
 
-Then, import the package and call `IsAirplaneMode.isAirplaneMode` to check if the device is in airplane mode:
+## How this works
 
-```dart
-import 'package:is_airplane_mode/is_airplane_mode.dart';
+### Android
 
-Future<void> _checkAirplaneMode() async {
-  final isOn = await IsAirplaneMode.isAirplaneMode;
-  if (kDebugMode) {
-    print("Airplane Mode is ${isOn ? "ON" : "OFF"}");
-  }
-}
-```
+Checks directly for airplane mode since it is accessible.
+
+### iOS
+
+Checks if the device has no network signal. On iOS devices which do not support celluar networks, this will always return true i.e airplane mode is on.
+
+## Platform Support
+
+### Android
+
+Support Sdk 21 and above.
+
+### iOS
+
+Support iOS 11.0 and above.
+
+## License
+
+MIT License
