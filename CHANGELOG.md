@@ -4,4 +4,4 @@
 
 ## 0.0.2
 
-*Fixed android native issue
+* Fixed android native issue
